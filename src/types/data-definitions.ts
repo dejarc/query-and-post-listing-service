@@ -54,7 +54,7 @@ export type TruncatedPosting = {
 };
 export type CompanyApiResponse = TruncatedPosting[];
 export type ApiError = {
-  message?: string;
-  statusCode?: number;
+  message: string;
+  statusCode: number;
   context?: string[]
 }

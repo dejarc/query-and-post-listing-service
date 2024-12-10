@@ -13,7 +13,7 @@ router.post(
       res.send(postings);
     } catch (err) {
       const apiError = formatResponseError(err as ApiError);
-      res.set(apiError.statusCode).send(apiError);
+      res.status(apiError.statusCode).send(apiError);
     }
   })
 );

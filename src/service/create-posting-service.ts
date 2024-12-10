@@ -9,7 +9,7 @@ export async function createPostingService(req: Request) {
     throw {
       error: 'missing one or more required properties',
       statusCode: 400,
-      missingProps,
+      context: missingProps,
     };
   }
   const response = await createPosting(posting);
