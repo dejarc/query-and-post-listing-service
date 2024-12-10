@@ -4,7 +4,7 @@
   "description": "",
   "author": "",
   "license": "ISC",
-  "main": "src/index.ts",
+  "main": "src/api/app.ts",
   "scripts": {
     "pretranspile": "npm run lint",
     "transpile": "tsc",
@@ -12,8 +12,8 @@
     "posttranspile": "copyfiles package.json build; ln -fs build/dist dist",
     "build": "npm run clean && npm run transpile",
     "clean": "rm -rf dist build",
-    "start": "npm run clean && npm run transpile && node dist/index.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
+    "start": "npm run clean && npm run transpile && node dist/api/app.js",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/api/app.js\"",
     "test": "npm run test:unit",
     "test:unit": "JEST_JUNIT_OUTPUT_DIR=build/reports/unit npx jest --config=.jest/unit-config.ts --coverage --coverageDirectory ./build/reports/unit/coverage --colors",
     "test:integration": "JEST_JUNIT_OUTPUT_DIR=build/reports/integration npx jest --config=.jest/integration-config.ts integration --coverage --coverageDirectory build/reports/integration/coverage --colors  --runInBand --detectOpenHandles"
@@ -24,13 +24,18 @@
     "axios-mock-adapter": "1.22.0",
     "dotenv": "16.4.5",
     "express": "4.19.2",
+    "express-async-handler": "^1.2.0",
+    "lodash": "^4.17.21",
     "lokijs": "1.5.12",
+    "morgan": "^1.10.0",
     "reflect-metadata": "0.2.2",
     "source-map-support": "0.5.21"
   },
   "devDependencies": {
     "@types/express": "4.17.21",
     "@types/jest": "29.5.12",
+    "@types/lodash": "^4.17.13",
+    "@types/morgan": "^1.9.9",
     "@types/node": "20.12.7",
     "@typescript-eslint/eslint-plugin": "7.2.0",
     "@typescript-eslint/parser": "7.2.0",
