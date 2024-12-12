@@ -12,18 +12,13 @@ export async function createPostingService(req: Request) {
       context: missingProps,
     };
   }
-  const response = await createPosting(posting);
+  await createPosting(posting);
   return {
     message: 'posting created successfully',
   };
 }
 
 function getMissingProperties(posting: TruncatedPosting): string[] {
-  //   - postings.companyName
-  // - postings.freight.weightPounds
-  // - postings.freight.equipmentType
-  // - postings.freight.fullPartial
-  // - postings.freight.lengthFeet
   return [
     'companyName',
     'freight.weightPounds',

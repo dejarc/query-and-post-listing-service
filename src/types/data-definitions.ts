@@ -1,11 +1,11 @@
-export type FilteredQuery = {
+export interface FilteredQuery {
   [str: string]: string;
-};
-export type Posting = {
+}
+export interface Posting {
   id: string;
   companyId: string;
   companyName?: string;
-  freight:  {
+  freight: {
     equipmentType: string;
     fullPartial: string;
     lengthFeet: number;
@@ -38,12 +38,12 @@ export type Posting = {
       stateProv: string;
     };
   };
-};
+}
 
-export type PostingApiResponse = {
+export interface PostingApiResponse {
   postings: Posting[];
 };
-export type TruncatedPosting = {
+export interface TruncatedPosting {
   companyName: string;
   freight: {
     weightPounds: number;
@@ -52,9 +52,9 @@ export type TruncatedPosting = {
     lengthFeet: number;
   };
 };
-export type CompanyApiResponse = TruncatedPosting[];
-export type ApiError = {
+export interface ApiError {
   message: string;
   statusCode: number;
-  context?: string[]
-}
+  context?: string[];
+};
+export type CompanyApiResponse = TruncatedPosting[];
