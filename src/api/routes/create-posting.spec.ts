@@ -23,16 +23,11 @@ describe('createPosting', () => {
       res = { send, status };
     });
     it('should return success message when posting created successfully', async () => {
-      const successResponse = {
-        message: 'posting created successfully',
-      };
       jest
         .spyOn(createPostingService, 'createPostingService')
-        .mockReturnValue(Promise.resolve(successResponse));
+        .mockReturnValue(Promise.resolve(validRequest.body));
       await createPosting(validRequest, res);
-      expect(send).toHaveBeenCalledWith({
-        message: 'posting created successfully',
-      });
+      expect(send).toHaveBeenCalledWith(validRequest.body);
     });
     it('should send contextual error message when required properties are missing', async () => {
       const expected = {
@@ -63,7 +58,7 @@ describe('createPosting', () => {
         statusCode: 500,
         context: [],
       };
-      const spy = jest
+      jest
         .spyOn(createPostingService, 'createPostingService')
         .mockReturnValue(Promise.reject(new Error('server call failed')));
       await createPosting(validRequest, res);

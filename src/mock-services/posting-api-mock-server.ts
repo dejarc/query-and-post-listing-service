@@ -3818,11 +3818,7 @@ const createApiMockServer = function () {
 
   // POST: adds a new posting
   mock.onPost('/posting').reply(function (config) {
-    let data = config.data;
-    if (typeof data === 'string') {
-      data = JSON.parse(data);
-    }
-    postingsData.push(data);
+    postingsData.push(JSON.parse(config.data));
     return [200];
   });
 };

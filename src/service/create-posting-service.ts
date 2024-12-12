@@ -1,6 +1,6 @@
 import { TruncatedPosting } from '../types/data-definitions';
 import { Request } from 'express';
-import { createPosting } from '../integration/postings-integration';
+import { createPosting } from '../integration/postings';
 import { has } from 'lodash';
 export async function createPostingService(req: Request) {
   const posting: TruncatedPosting = req.body;
@@ -13,9 +13,7 @@ export async function createPostingService(req: Request) {
     };
   }
   await createPosting(posting);
-  return {
-    message: 'posting created successfully',
-  };
+  return posting;
 }
 
 function getMissingProperties(posting: TruncatedPosting): string[] {

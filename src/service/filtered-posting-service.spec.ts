@@ -1,4 +1,4 @@
-import * as postingIntegration from '../integration/postings-integration';
+import * as postingIntegration from '../integration/postings';
 import { filteredPostingsService } from './filtered-posting-service';
 describe('createPostingService', () => {
     const postingResponse = [

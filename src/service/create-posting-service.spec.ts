@@ -1,4 +1,4 @@
-import * as postingIntegration from '../integration/postings-integration';
+import * as postingIntegration from '../integration/postings';
 import { createPostingService } from './create-posting-service';
 describe('createPostingService', () => {
     const validRequest: any = {
@@ -18,9 +18,7 @@ describe('createPostingService', () => {
         .mockReturnValue(Promise.resolve([200]));
       const res = await createPostingService(validRequest);
       expect(spy).toHaveBeenCalledWith(validRequest.body);
-      expect(res).toEqual({
-        message: 'posting created successfully',
-      });
+      expect(res).toEqual(validRequest.body);
     });
     it('should throw error when missing properties', async () => {
       const badRequest: any = {

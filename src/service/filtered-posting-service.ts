@@ -4,8 +4,8 @@ import {
   CompanyApiResponse,
 } from '../types/data-definitions';
 import { Request } from 'express';
-import { getPostings } from '../integration/postings-integration';
-import { getCompanyById } from '../integration/db-integration';
+import { getPostings } from '../integration/postings';
+import { getCompanyById } from '../integration/company';
 
 export async function filteredPostingsService(req: Request) {
   const filteredParams = getFilterParameters(req);

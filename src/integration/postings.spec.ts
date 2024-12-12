@@ -1,4 +1,4 @@
-import { getPostings, createPosting } from './postings-integration';
+import { getPostings, createPosting } from './postings';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 describe('postings-integration', () => {
@@ -44,7 +44,7 @@ describe('postings-integration', () => {
   describe('createPosting', () => {
     it('should return success response for posting', async () => {
       const mock = new MockAdapter(axios);
-      mock.onPost('/posting').reply((config) => {
+      mock.onPost('/posting').reply(() => {
         return [200];
       });
       const validRequest: any = {
@@ -59,7 +59,7 @@ describe('postings-integration', () => {
         },
       };
       const res = await createPosting(validRequest);
-      expect(res).toEqual(undefined)
+      expect(res).toEqual(undefined);
     });
   });
 });

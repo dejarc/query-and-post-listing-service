@@ -1,5 +1,5 @@
-import { getCompanies, getCompanyById } from './db-integration';
-import { CompanyDB } from '../db/company.db';
+import { getCompanies, getCompanyById } from './company';
+import { CompanyDB } from '../mock-services/company.db';
 describe('db-integration', () => {
   const mockData = [
     { id: '1', name: 'ACCELERATE SHIPPING' },

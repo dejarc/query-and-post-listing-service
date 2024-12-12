@@ -1,5 +1,4 @@
 import * as filteredPostingService from '../../service/filtered-posting-service';
-import * as errorService from '../../service/error-service';
 import { getPostings } from './postings';
 describe('getPostings', () => {
     const validRequest: any = {
@@ -30,7 +29,7 @@ describe('getPostings', () => {
       res = { send, status };
     });
     it('should return filtered company data', async () => {
-      const spy = jest
+      jest
         .spyOn(filteredPostingService, 'filteredPostingsService')
         .mockReturnValue(Promise.resolve(mockPostings));
       await getPostings(validRequest, res);
@@ -42,7 +41,7 @@ describe('getPostings', () => {
         statusCode: 500,
         context: [],
       };
-      const spy = jest
+      jest
         .spyOn(filteredPostingService, 'filteredPostingsService')
         .mockReturnValue(Promise.reject(new Error('integration call failed')));
       await getPostings(validRequest, res);
