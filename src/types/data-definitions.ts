@@ -57,4 +57,12 @@ export interface ApiError {
   statusCode: number;
   context?: string[];
 };
+export interface Validator {
+  query_path: string;
+  target_path: string;
+  query_val: any;
+  setQueryValue(src_obj: any): void;
+  hasValue(target_obj: any): boolean;
+};
+
 export type CompanyApiResponse = TruncatedPosting[];

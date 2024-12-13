@@ -1,0 +1,65 @@
+{
+	"info": {
+		"_postman_id": "1667fc40-5f55-4552-b27d-b2d6c0a42db6",
+		"name": "dat-takehome",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8714151"
+	},
+	"item": [
+		{
+			"name": "query-postings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/get-postings?fullPartial=FULL&equipmentType=Reefer",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"get-postings"
+					],
+					"query": [
+						{
+							"key": "fullPartial",
+							"value": "FULL"
+						},
+						{
+							"key": "equipmentType",
+							"value": "Reefer"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-posting",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"companyName\": \"test-company-5\",\n      \"freight\": {\n        \"equipmentType\": \"Van\",\n        \"fullPartial\": \"FULL\",\n        \"lengthFeet\": 53,\n        \"weightPounds\": 36600\n      }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/create-posting",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"create-posting"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

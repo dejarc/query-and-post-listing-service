@@ -4,7 +4,7 @@
   "description": "",
   "author": "",
   "license": "ISC",
-  "main": "src/api/app.ts",
+  "main": "src/index.ts",
   "scripts": {
     "pretranspile": "npm run lint",
     "transpile": "tsc",

@@ -5,15 +5,34 @@
   "version": "0.2.0",
   "configurations": [
     {
-        "name": "Debug Jest Tests",
-        "type": "node",
-        "request": "launch",
-        "runtimeArgs": ["--inspect-brk", "${workspaceRoot}/node_modules/.bin/jest", "--config=${workspaceRoot}/.jest/unit-config.ts", "--runInBand", "--coverage","--coverageDirectory","${workspaceRoot}/build/reports/unit/coverage","--colors"],
-        "console": "integratedTerminal",
-        "internalConsoleOptions": "neverOpen",
-        "env": {
-          "JEST_JUNIT_OUTPUT_DIR": "${workspaceRoot}/build/reports/unit"
-        }
+      "name": "Launch Program",
+      "program": "${workspaceFolder}/build/dist/index.js",
+      "request": "launch",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "node",
+      "runtimeExecutable": "${userHome}/.nvm/versions/node/v18.20.4/bin/node"
+    },
+    {
+      "name": "Debug Jest Tests",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": [
+        "--inspect-brk",
+        "${workspaceRoot}/node_modules/.bin/jest",
+        "--config=${workspaceRoot}/.jest/unit-config.ts",
+        "--runInBand",
+        "--coverage",
+        "--coverageDirectory",
+        "${workspaceRoot}/build/reports/unit/coverage",
+        "--colors"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "env": {
+        "JEST_JUNIT_OUTPUT_DIR": "${workspaceRoot}/build/reports/unit"
+      }
     }
-]
+  ]
 }
