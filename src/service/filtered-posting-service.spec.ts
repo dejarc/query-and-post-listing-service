@@ -225,4 +225,22 @@ describe('createPostingService', () => {
       const res = await filteredPostingsService(validRequest);
       expect(res).toEqual(expected);
     });
+    it('should not allow filtering parameters for multiple values', async () => {
+      const validRequest: any = {
+        query: {
+          fullPartial: ['FULL', 'PARTIAL'],
+          equipmentType: 'Van',
+        },
+      };
+      const expected = {
+        statusCode: 400,
+        message: 'Invalid Query Parameter',
+        context: ['Multiple values for the same parameter not supported'],
+      };
+      try {
+        await filteredPostingsService(validRequest);
+      } catch(error) {
+        expect(error).toEqual(expected);
+      }
+    });
   });

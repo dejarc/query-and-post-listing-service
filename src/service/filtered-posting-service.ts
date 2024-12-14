@@ -1,8 +1,12 @@
-import { Posting, CompanyApiResponse, Validator } from '../types/data-definitions';
+import {
+  Posting,
+  CompanyApiResponse,
+  Validator,
+} from '../types/data-definitions';
 import { Request } from 'express';
 import { getPostings } from '../integration/postings';
 import { getCompanyById } from '../integration/company';
-import { ParamValidator } from './ParamValidator';
+import { StringValidator } from './param-validator';
 export async function filteredPostingsService(req: Request) {
   const filteredParams = getFilterParameters(req);
   const postings = await getPostings();
@@ -10,14 +14,11 @@ export async function filteredPostingsService(req: Request) {
   return getFormattedResponse(filteredPostings);
 }
 function getFilterParameters(req: Request): Validator[] {
-  const validators = [
-    new ParamValidator('fullPartial', 'freight.fullPartial'),
-    new ParamValidator('equipmentType', 'freight.equipmentType'),
-  ];
-  return validators.map((val) => {
-    val.setQueryValue(req.query);
-    return val;
-  });
+  const newSet = new Set();
+  return [
+    new StringValidator('fullPartial', 'freight.fullPartial'),
+    new StringValidator('equipmentType', 'freight.equipmentType'),
+  ].map((val) => val.setValue(req.query));
 }
 
 function filterByFreightProperties(

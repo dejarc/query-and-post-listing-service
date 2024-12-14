@@ -5,14 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch Program",
-      "program": "${workspaceFolder}/build/dist/index.js",
-      "request": "launch",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
       "type": "node",
-      "runtimeExecutable": "${userHome}/.nvm/versions/node/v18.20.4/bin/node"
+      "request": "attach",
+      "name": "Debug Server",
+      "processId": "${command:PickProcess}",
+      "restart": true,
+      "port": 9229
     },
     {
       "name": "Debug Jest Tests",

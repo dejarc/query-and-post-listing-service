@@ -20,7 +20,7 @@ function getUnexpectedValue(
 jest.setTimeout(100000);
 describe('Company API', () => {
   describe('GET /get-postings', () => {
-    it('should fetch a list of all company postings for based on "fullPartial"', async () => {
+    it('should fetch a list of all company postings by "fullPartial"', async () => {
       const full = 'FULL';
       const url = `/get-postings?fullPartial=${full}`;
       const response = await request(app)
@@ -30,7 +30,7 @@ describe('Company API', () => {
       expect(unexpectedResult).toBeUndefined();
     });
 
-    it('should fetch a list of all company postings for based on "equipmentType"', async () => {
+    it('should fetch a list of all company postings by "equipmentType"', async () => {
       const equipmentType = 'Van';
       const url = `/get-postings?equipmentType=${equipmentType}`;
       const response = await request(app)
@@ -43,7 +43,7 @@ describe('Company API', () => {
       );
       expect(unexpectedResult).toBeUndefined();
     });
-    it('should fetch a list of all company postings for based on "fullPartial" only', async () => {
+    it('should fetch a list of all company postings by "fullPartial" and "equipmentType"', async () => {
       const full = 'FULL';
       const equipment = 'Van';
       const url = `/get-postings?fullPartial=${full}&equipmentType=${equipment}`;
@@ -52,6 +52,20 @@ describe('Company API', () => {
         .then((res) => res.body);
       const unexpectedResult = getUnexpectedValue(response, full, equipment);
       expect(unexpectedResult).toBeUndefined();
+    });
+    it('should not allow multiple values for the same parameter', async () => {
+      const fullPartial = 'FULL';
+      const secondFullPartial = 'PARTIAL'
+      const url = `/get-postings?fullPartial=${fullPartial}&fullPartial=${secondFullPartial}`;
+      const response = await request(app)
+        .get(url);
+      const expectedValue = {
+        statusCode: 400,
+        message: 'Invalid Query Parameter',
+        context: ['Multiple values for the same parameter not supported'],
+      };
+      expect(response.status).toEqual(400);
+      expect(response.body).toEqual(expectedValue);
     });
   });
   describe('POST /create-posting', () => {

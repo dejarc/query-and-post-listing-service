@@ -1,0 +1,178 @@
+openapi: 3.0.3
+info:
+  title: Posting API
+  description: |-
+    This is a sample demonstration of an API
+    for managing company listings
+  contact:
+    email: cdejarc@gmail.com
+  version: 1.0.0
+servers:
+  - url: localhost:8000
+paths:
+  /get-postings:
+    get:
+      summary: Query postings
+      description: Query postings based on provided query parameters
+      parameters:
+        - name: fullPartial
+          in: query
+          description: status values that will be considered in filter
+          required: false
+          schema:
+            type: string
+            enum:
+              - FULL
+              - PARTIAL
+        - name: equipmentType
+          in: query
+          description: status values that will be considered in filter
+          required: false
+          schema:
+            type: string
+            example: Van
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Posting'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidQueryTypeError'
+        '500':
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+  /create-posting:
+    post:
+      summary: Create a new posting
+      description: Create a new posting
+      requestBody:
+        description: The posting to create
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Posting'
+      responses:
+        '200':
+          description: The posting was created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Posting'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingPropertiesError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+components:
+  schemas:
+    Posting:
+      type: object
+      required:
+        - companyName
+        - freight
+      properties:
+        companyName:
+          type: string
+          example: test-company-1
+        freight:
+          $ref: '#/components/schemas/Freight'
+    Freight:
+      type: object
+      required:
+        - weightPounds
+        - equipmentType
+        - fullPartial
+        - lengthFeet
+      properties:
+        weightPounds:
+          type: integer
+          format: int32
+          example: 2000
+        equipmentType:
+          type: string
+          example: Van
+        fullPartial:
+          type: string
+          description: load status
+          enum:
+            - FULL
+            - PARTIAL
+        lengthFeet:
+          type: integer
+          format: int64
+          example: 50
+    InternalServerError:
+      type: object
+      required:
+        - statusCode
+        - message
+        - context
+      properties:
+        statusCode:
+          type: integer
+          example: 500
+        message:
+          type: string
+          example: Internal server error
+        context:
+          type: array
+          items:
+            type: string
+            example: Internal server error
+    MissingPropertiesError:
+      type: object
+      required:
+        - statusCode
+        - message
+        - context
+      properties:
+        statusCode:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: missing one or more required properties
+        context:
+          type: array
+          items:
+            type: string
+            example: companyName
+    InvalidQueryTypeError:
+      type: object
+      required:
+        - statusCode
+        - message
+        - context
+      properties:
+        statusCode:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid Query Parameter 
+        context:
+          type: array
+          items:
+            type: string
+            example: Multiple values for the same parameter not supported

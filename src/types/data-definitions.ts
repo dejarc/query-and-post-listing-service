@@ -58,10 +58,7 @@ export interface ApiError {
   context?: string[];
 };
 export interface Validator {
-  query_path: string;
-  target_path: string;
-  query_val: any;
-  setQueryValue(src_obj: any): void;
+  setValue(src_obj: any): this;
   hasValue(target_obj: any): boolean;
 };
 

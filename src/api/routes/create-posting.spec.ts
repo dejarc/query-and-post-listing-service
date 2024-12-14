@@ -52,7 +52,7 @@ describe('createPosting', () => {
       expect(status).toHaveBeenCalledWith(400);
       expect(send).toHaveBeenCalledWith(expected);
     });
-    it('should send a generic error message when posting service fails', async () => {
+    it('should send an error message when posting service fails', async () => {
       const expected = {
         message: 'Internal Server Error',
         statusCode: 500,
