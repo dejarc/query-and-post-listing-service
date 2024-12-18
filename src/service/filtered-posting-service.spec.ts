@@ -239,7 +239,7 @@ describe('createPostingService', () => {
       };
       try {
         await filteredPostingsService(validRequest);
-      } catch(error) {
+      } catch (error) {
         expect(error).toEqual(expected);
       }
     });

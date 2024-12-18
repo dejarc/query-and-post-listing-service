@@ -55,7 +55,7 @@ describe('Company API', () => {
     });
     it('should not allow multiple values for the same parameter', async () => {
       const fullPartial = 'FULL';
-      const secondFullPartial = 'PARTIAL'
+      const secondFullPartial = 'PARTIAL';
       const url = `/get-postings?fullPartial=${fullPartial}&fullPartial=${secondFullPartial}`;
       const response = await request(app)
         .get(url);

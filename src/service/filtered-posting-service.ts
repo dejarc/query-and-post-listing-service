@@ -14,7 +14,6 @@ export async function filteredPostingsService(req: Request) {
   return getFormattedResponse(filteredPostings);
 }
 function getFilterParameters(req: Request): Validator[] {
-  const newSet = new Set();
   return [
     new StringValidator('fullPartial', 'freight.fullPartial'),
     new StringValidator('equipmentType', 'freight.equipmentType'),
