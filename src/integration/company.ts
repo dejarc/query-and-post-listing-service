@@ -9,3 +9,13 @@ export function getCompanies(): Collection<Company> {
 export function getCompanyById(id: string): Company {
   return db.getCompanyById(id);
 }
+export function getAllCompaniesById(ids: string[]) {
+  const idSet = new Set(ids);
+  return db
+    .getCompanyCompanyCollection()
+    .where((data) => idSet.has(data.id))
+    .reduce((acc, next) => {
+      acc[next.id] = next.name;
+      return acc;
+    }, {} as { [str: string]: string });
+}

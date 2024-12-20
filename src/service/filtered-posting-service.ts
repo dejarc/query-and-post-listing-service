@@ -5,7 +5,7 @@ import {
 } from '../types/data-definitions';
 import { Request } from 'express';
 import { getPostings } from '../integration/postings';
-import { getCompanyById } from '../integration/company';
+import { getCompanyById, getAllCompaniesById } from '../integration/company';
 import { StringValidator } from './param-validator';
 export async function filteredPostingsService(req: Request) {
   const filteredParams = getFilterParameters(req);
@@ -29,9 +29,11 @@ function filterByFreightProperties(
   });
 }
 function getFormattedResponse(postings: Posting[]): CompanyApiResponse {
+  
+  const allById = getAllCompaniesById(postings.map(posting => posting.companyId));
   return postings.map((posting) => {
     const companyName =
-      posting.companyName || getCompanyById(posting.companyId).name;
+      posting.companyName || allById[posting.companyId];
     const { weightPounds, equipmentType, fullPartial, lengthFeet } =
       posting.freight;
     return {
