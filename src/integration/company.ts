@@ -9,7 +9,7 @@ export function getCompanies(): Collection<Company> {
 export function getCompanyById(id: string): Company {
   return db.getCompanyById(id);
 }
-export function getAllCompaniesById(ids: string[]) {
+export function getAllCompaniesById(ids: string[]): { [str: string]: string } {
   const idSet = new Set(ids);
   return db
     .getCompanyCompanyCollection()
