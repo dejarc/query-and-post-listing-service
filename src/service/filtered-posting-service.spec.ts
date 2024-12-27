@@ -225,6 +225,27 @@ describe('createPostingService', () => {
       const res = await filteredPostingsService(validRequest);
       expect(res).toEqual(expected);
     });
+    it('should allow inconsistent casing in filter parameters', async () => {
+      const validRequest: any = {
+        query: {
+          fullPartial: 'FuLl',
+          equipmentType: 'VaN',
+        },
+      };
+      const expected = [
+        {
+          companyName: 'EXPERT SHIPPING',
+          freight: {
+            weightPounds: 40000,
+            equipmentType: 'Van',
+            fullPartial: 'FULL',
+            lengthFeet: 53,
+          },
+        },
+      ];
+      const res = await filteredPostingsService(validRequest);
+      expect(res).toEqual(expected);
+    });
     it('should not allow filtering parameters for multiple values', async () => {
       const validRequest: any = {
         query: {
