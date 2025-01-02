@@ -12,7 +12,7 @@ export class StringValidator implements Validator {
   }
 
   setValue(src_obj: any) {
-    this.query_val = get(src_obj, this.query_path);
+    this.query_val = get(src_obj, this.query_path, '');
     if (this.query_val && typeof this.query_val !== 'string') {
       throw {
         statusCode: 400,
@@ -20,11 +20,12 @@ export class StringValidator implements Validator {
         context: ['Multiple values for the same parameter not supported'],
       };
     }
+    this.query_val = this.query_val.toLowerCase();
     return this;
   }
   hasValue(target_obj: any): boolean {
-    const targetValue = get(target_obj, this.target_path) as string;
+    const targetValue = get(target_obj, this.target_path, '').toLowerCase();
     const queryVal = this.query_val || targetValue;
-    return isEqual(queryVal.toLowerCase(), targetValue.toLowerCase());
+    return isEqual(queryVal, targetValue);
   }
 }
