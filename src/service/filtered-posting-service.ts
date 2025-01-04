@@ -25,12 +25,9 @@ function createValidator(
   pathOnPosting: string
 ): (posting: Posting) => boolean {
   if (typeof requestedVal === 'string') {
-    const lowercaseRequested = requestedVal.toLowerCase();
     return (posting: Posting): boolean => {
-      const postingVal = (
-        get(posting, pathOnPosting, '') as string
-      ).toLowerCase();
-      return (lowercaseRequested || postingVal) === postingVal;
+      const postingVal = get(posting, pathOnPosting, '');
+      return (requestedVal || postingVal) === postingVal;
     };
   } else {
     const querySet = new Set(requestedVal);
