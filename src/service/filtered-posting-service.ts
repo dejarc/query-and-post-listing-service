@@ -2,6 +2,7 @@ import {
   Posting,
   CompanyApiResponse,
   FilteredQuery,
+  PostingValidator
 } from '../types/data-definitions';
 import { getPostings } from '../integration/postings';
 import { getAllCompaniesById } from '../integration/company';
@@ -14,25 +15,25 @@ export async function filteredPostingsService(params: FilteredQuery) {
 }
 function getFilterParameters(
   params: FilteredQuery
-): { (posting: Posting): boolean }[] {
+): PostingValidator[] {
   return [
-    createValidator(get(params, 'fullPartial', ''), 'freight.fullPartial'),
-    createValidator(get(params, 'equipmentType', ''), 'freight.equipmentType'),
+    createValidator(params.fullPartial || '', 'freight.fullPartial'),
+    createValidator(params.equipmentType || '', 'freight.equipmentType'),
   ];
 }
 function createValidator(
-  requestedVal: string | Array<string>,
-  pathOnPosting: string
-): (posting: Posting) => boolean {
-  if (typeof requestedVal === 'string') {
+  queryVal: string | Array<string>,
+  postingPath: string
+): PostingValidator {
+  if (typeof queryVal === 'string') {
     return (posting: Posting): boolean => {
-      const postingVal = get(posting, pathOnPosting, '');
-      return (requestedVal || postingVal) === postingVal;
+      const postingVal = get(posting, postingPath, '');
+      return (queryVal || postingVal) === postingVal;
     };
   } else {
-    const querySet = new Set(requestedVal);
+    const querySet = new Set(queryVal);
     return (posting: Posting): boolean => {
-      return querySet.has(get(posting, pathOnPosting));
+      return querySet.has(get(posting, postingPath));
     };
   }
 }

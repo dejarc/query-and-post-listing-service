@@ -59,3 +59,4 @@ export interface ApiError {
 };
 
 export type CompanyApiResponse = TruncatedPosting[];
+export type PostingValidator = (posting: Posting) => boolean;
