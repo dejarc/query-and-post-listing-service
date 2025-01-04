@@ -17,7 +17,7 @@ describe('createPostingService', () => {
     it('should return success message when posting created successfully', async () => {
       const spy = jest
         .spyOn(postingIntegration, 'createPosting')
-        .mockReturnValue(Promise.resolve([200]));
+        .mockReturnValue(Promise.resolve());
       const res = await createPostingService(posting);
       expect(spy).toHaveBeenCalledWith(posting);
       expect(res).toEqual(posting);

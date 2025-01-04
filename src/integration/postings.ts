@@ -10,7 +10,6 @@ export async function getPostings(): Promise<Posting[]> {
     .then((res) => res.data);
   return getPostings.postings;
 }
-export async function createPosting(company: TruncatedPosting): Promise<any> {
-  const posting = await axios.post('/posting', company).then((res) => res.data);
-  return posting;
+export async function createPosting(company: TruncatedPosting): Promise<void> {
+  await axios.post('/posting', company);
 }
