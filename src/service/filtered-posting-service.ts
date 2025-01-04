@@ -53,15 +53,13 @@ function getFormattedResponse(postings: Posting[]): CompanyApiResponse {
   );
   return postings.map((posting) => {
     const companyName = posting.companyName || allById[posting.companyId];
-    const { weightPounds, equipmentType, fullPartial, lengthFeet } =
-      posting.freight;
     return {
       companyName: companyName,
       freight: {
-        weightPounds,
-        equipmentType,
-        fullPartial,
-        lengthFeet,
+        weightPounds: get(posting.freight, 'weightPounds'),
+        equipmentType: get(posting.freight, 'equipmentType'),
+        fullPartial: get(posting.freight, 'fullPartial'),
+        lengthFeet: get(posting.freight, 'lengthFeet'),
       },
     };
   });
