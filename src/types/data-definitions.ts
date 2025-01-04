@@ -6,11 +6,11 @@ export interface Posting {
   companyId: string;
   companyName?: string;
   freight: {
-    equipmentType: string;
-    fullPartial: string;
-    lengthFeet: number;
-    weightPounds: number;
-    comments: Array<{
+    equipmentType?: string;
+    fullPartial?: string;
+    lengthFeet?: number;
+    weightPounds?: number;
+    comments?: Array<{
       comment: string;
     }>;
   };
@@ -56,10 +56,6 @@ export interface ApiError {
   message: string;
   statusCode: number;
   context?: string[];
-};
-export interface Validator {
-  setValue(src_obj: any): this;
-  hasValue(target_obj: any): boolean;
 };
 
 export type CompanyApiResponse = TruncatedPosting[];
