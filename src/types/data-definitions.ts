@@ -5,7 +5,7 @@ export interface Posting {
   id: string;
   companyId: string;
   companyName?: string;
-  freight: {
+  freight?: {
     equipmentType?: string;
     fullPartial?: string;
     lengthFeet?: number;
@@ -14,8 +14,8 @@ export interface Posting {
       comment: string;
     }>;
   };
-  lane: {
-    origin: {
+  lane?: {
+    origin?: {
       placeId?: number;
       location?: {
         lat: number;
@@ -26,7 +26,7 @@ export interface Posting {
       postalCode?: string;
       stateProv?: string;
     };
-    destination: {
+    destination?: {
       placeId?: number;
       location?: {
         lat: number;

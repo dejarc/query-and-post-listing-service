@@ -1,4 +1,4 @@
-import { FilteredQuery } from "../types/data-definitions";
+import { FilteredQuery } from '../types/data-definitions';
 import { ParsedQs } from 'qs';
 export function getFilteredParams(query: ParsedQs): FilteredQuery {
   return Object.keys(query).reduce((acc, next) => {
