@@ -53,10 +53,10 @@ function getFormattedResponse(postings: Posting[]): CompanyApiResponse {
     return {
       companyName: companyName,
       freight: {
-        weightPounds: get(posting.freight, 'weightPounds', null),
-        equipmentType: get(posting.freight, 'equipmentType', null),
-        fullPartial: get(posting.freight, 'fullPartial', null),
-        lengthFeet: get(posting.freight, 'lengthFeet', null),
+        weightPounds: get(posting, 'freight.weightPounds', null),
+        equipmentType: get(posting, 'freight.equipmentType', null),
+        fullPartial: get(posting, 'freight.fullPartial', null),
+        lengthFeet: get(posting, 'freight.lengthFeet', null),
       },
     };
   });
