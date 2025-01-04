@@ -46,10 +46,10 @@ export interface PostingApiResponse {
 export interface TruncatedPosting {
   companyName?: string;
   freight?: {
-    weightPounds?: number;
-    equipmentType?: string;
-    fullPartial?: string;
-    lengthFeet?: number;
+    weightPounds?: number | null;
+    equipmentType?: string | null;
+    fullPartial?: string | null;
+    lengthFeet?: number | null;
   };
 };
 export interface ApiError {
