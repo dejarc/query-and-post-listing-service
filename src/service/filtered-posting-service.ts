@@ -1,31 +1,50 @@
 import {
   Posting,
   CompanyApiResponse,
-  Validator,
+  FilteredQuery,
 } from '../types/data-definitions';
-import { Request } from 'express';
 import { getPostings } from '../integration/postings';
 import { getAllCompaniesById } from '../integration/company';
-import { StringValidator } from './param-validator';
-export async function filteredPostingsService(req: Request) {
-  const filteredParams = getFilterParameters(req);
+import { get } from 'lodash';
+export async function filteredPostingsService(params: FilteredQuery) {
+  const filteredParams = getFilterParameters(params);
   const postings = await getPostings();
   const filteredPostings = filterByFreightProperties(postings, filteredParams);
   return getFormattedResponse(filteredPostings);
 }
-function getFilterParameters(req: Request): Validator[] {
+function getFilterParameters(
+  params: FilteredQuery
+): { (posting: Posting): boolean }[] {
   return [
-    new StringValidator('fullPartial', 'freight.fullPartial'),
-    new StringValidator('equipmentType', 'freight.equipmentType'),
-  ].map((val) => val.setValue(req.query));
+    createValidator(get(params, 'fullPartial', ''), 'freight.fullPartial'),
+    createValidator(get(params, 'equipmentType', ''), 'freight.equipmentType'),
+  ];
 }
-
+function createValidator(
+  requestedVal: string | Array<string>,
+  pathOnPosting: string
+): (posting: Posting) => boolean {
+  if (typeof requestedVal === 'string') {
+    const lowercaseRequested = requestedVal.toLowerCase();
+    return (posting: Posting): boolean => {
+      const postingVal = (
+        get(posting, pathOnPosting, '') as string
+      ).toLowerCase();
+      return (lowercaseRequested || postingVal) === postingVal;
+    };
+  } else {
+    const querySet = new Set(requestedVal);
+    return (posting: Posting): boolean => {
+      return querySet.has(get(posting, pathOnPosting));
+    };
+  }
+}
 function filterByFreightProperties(
   postings: Posting[],
-  validators: Validator[]
+  validators: { (posting: Posting): boolean }[]
 ): Posting[] {
   return postings.filter((posting: Posting) => {
-    return !validators.find((validator) => !validator.hasValue(posting));
+    return !validators.find((validator) => !validator(posting));
   });
 }
 function getFormattedResponse(postings: Posting[]): CompanyApiResponse {

@@ -129,9 +129,7 @@ describe('createPostingService', () => {
         .mockReturnValue(Promise.resolve(postingResponse));
     });
     it('should not filter the results when query parameters are omitted', async () => {
-      const validRequest: any = {
-        query: {},
-      };
+      const validRequest = {};
       const expected = [
         {
           companyName: 'ACCELERATE SHIPPING',
@@ -166,9 +164,7 @@ describe('createPostingService', () => {
     });
     it('should filter results based on "fullPartial" only', async () => {
       const validRequest: any = {
-        query: {
-          fullPartial: 'PARTIAL',
-        },
+        fullPartial: 'PARTIAL',
       };
       const expected = [
         {
@@ -185,10 +181,8 @@ describe('createPostingService', () => {
       expect(res).toEqual(expected);
     });
     it('should filter results based on "equipmentType" only', async () => {
-      const validRequest: any = {
-        query: {
-          equipmentType: 'Reefer',
-        },
+      const validRequest = {
+        equipmentType: 'Reefer',
       };
       const expected = [
         {
@@ -205,11 +199,9 @@ describe('createPostingService', () => {
       expect(res).toEqual(expected);
     });
     it('should filter results based on "fullPartial" and "equipmentType"', async () => {
-      const validRequest: any = {
-        query: {
-          fullPartial: 'FULL',
-          equipmentType: 'Van',
-        },
+      const validRequest = {
+        fullPartial: 'FULL',
+        equipmentType: 'Van',
       };
       const expected = [
         {
@@ -226,11 +218,9 @@ describe('createPostingService', () => {
       expect(res).toEqual(expected);
     });
     it('should allow inconsistent casing in filter parameters', async () => {
-      const validRequest: any = {
-        query: {
-          fullPartial: 'FuLl',
-          equipmentType: 'VaN',
-        },
+      const validRequest = {
+        fullPartial: 'FuLl',
+        equipmentType: 'VaN',
       };
       const expected = [
         {
@@ -245,23 +235,5 @@ describe('createPostingService', () => {
       ];
       const res = await filteredPostingsService(validRequest);
       expect(res).toEqual(expected);
-    });
-    it('should not allow filtering parameters for multiple values', async () => {
-      const validRequest: any = {
-        query: {
-          fullPartial: ['FULL', 'PARTIAL'],
-          equipmentType: 'Van',
-        },
-      };
-      const expected = {
-        statusCode: 400,
-        message: 'Invalid Query Parameter',
-        context: ['Multiple values for the same parameter not supported'],
-      };
-      try {
-        await filteredPostingsService(validRequest);
-      } catch (error) {
-        expect(error).toEqual(expected);
-      }
     });
   });

@@ -1,5 +1,5 @@
 export interface FilteredQuery {
-  [str: string]: string;
+  [str: string]: string | Array<string>;
 }
 export interface Posting {
   id: string;
@@ -44,12 +44,12 @@ export interface PostingApiResponse {
   postings: Posting[];
 };
 export interface TruncatedPosting {
-  companyName: string;
-  freight: {
-    weightPounds: number;
-    equipmentType: string;
-    fullPartial: string;
-    lengthFeet: number;
+  companyName?: string;
+  freight?: {
+    weightPounds?: number;
+    equipmentType?: string;
+    fullPartial?: string;
+    lengthFeet?: number;
   };
 };
 export interface ApiError {

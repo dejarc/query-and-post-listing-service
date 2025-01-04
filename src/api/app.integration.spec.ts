@@ -9,7 +9,8 @@ function getUnexpectedValue(
   equipment?: string
 ) {
   return apiResults.find((posting) => {
-    const { equipmentType, fullPartial } = posting.freight;
+    const equipmentType = posting?.freight?.equipmentType;
+    const fullPartial = posting?.freight?.fullPartial;
     const expectedEqType = equipment || equipmentType;
     const expectedFullPartial = full || fullPartial;
     return (
@@ -52,20 +53,6 @@ describe('Company API', () => {
         .then((res) => res.body);
       const unexpectedResult = getUnexpectedValue(response, full, equipment);
       expect(unexpectedResult).toBeUndefined();
-    });
-    it('should not allow multiple values for the same parameter', async () => {
-      const fullPartial = 'FULL';
-      const secondFullPartial = 'PARTIAL';
-      const url = `/get-postings?fullPartial=${fullPartial}&fullPartial=${secondFullPartial}`;
-      const response = await request(app)
-        .get(url);
-      const expectedValue = {
-        statusCode: 400,
-        message: 'Invalid Query Parameter',
-        context: ['Multiple values for the same parameter not supported'],
-      };
-      expect(response.status).toEqual(400);
-      expect(response.body).toEqual(expectedValue);
     });
   });
   describe('POST /create-posting', () => {

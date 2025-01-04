@@ -22,6 +22,9 @@ describe('createPosting', () => {
       }));
       res = { send, status };
     });
+    afterAll(() => {
+      jest.clearAllMocks();
+    });
     it('should return success message when posting created successfully', async () => {
       jest
         .spyOn(createPostingService, 'createPostingService')

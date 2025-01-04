@@ -33,6 +33,9 @@ describe('postings-integration', () => {
       },
     ],
   };
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
   describe('getPostings', () => {
     it('should return postings', async () => {
       const mock = new MockAdapter(axios);
