@@ -16,26 +16,26 @@ export interface Posting {
   };
   lane: {
     origin: {
-      placeId: number;
-      location: {
+      placeId?: number;
+      location?: {
         lat: number;
         lon: number;
       };
-      city: string;
-      county: string;
-      postalCode: string;
-      stateProv: string;
+      city?: string;
+      county?: string;
+      postalCode?: string;
+      stateProv?: string;
     };
     destination: {
-      placeId: number;
-      location: {
+      placeId?: number;
+      location?: {
         lat: number;
         lon: number;
       };
-      city: string;
-      county: string;
-      postalCode: string;
-      stateProv: string;
+      city?: string;
+      county?: string;
+      postalCode?: string;
+      stateProv?: string;
     };
   };
 }
