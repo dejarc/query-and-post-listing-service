@@ -5,7 +5,7 @@ import {
   ValidatorOptions,
 } from '../types/data-definitions';
 
-export function createValidator(
+export function createFilter(
   queryVal: string | Array<string>,
   postingPath: string,
   options?: ValidatorOptions

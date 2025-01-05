@@ -7,7 +7,7 @@ import {
 import { getPostings } from '../integration/postings';
 import { getAllCompaniesById } from '../integration/company';
 import { get } from 'lodash';
-import { createValidator } from './create-validator';
+import { createFilter } from './create-filter';
 export async function filteredPostingsService(params: FilteredQuery) {
   const filteredParams = getPostingValidators(params);
   const postings = await getPostings();
@@ -18,8 +18,8 @@ function getPostingValidators(
   params: FilteredQuery
 ): PostingValidator[] {
   return [
-    createValidator(params.fullPartial || '', 'freight.fullPartial'),
-    createValidator(params.equipmentType || '', 'freight.equipmentType'),
+    createFilter(params.fullPartial || '', 'freight.fullPartial'),
+    createFilter(params.equipmentType || '', 'freight.equipmentType'),
   ];
 }
 function filterByFreightProperties(
