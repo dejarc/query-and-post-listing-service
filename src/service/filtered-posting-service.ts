@@ -9,12 +9,12 @@ import { getAllCompaniesById } from '../integration/company';
 import { get } from 'lodash';
 import { createValidator } from './createValidator';
 export async function filteredPostingsService(params: FilteredQuery) {
-  const filteredParams = getFilterParameters(params);
+  const filteredParams = getPostingValidators(params);
   const postings = await getPostings();
   const filteredPostings = filterByFreightProperties(postings, filteredParams);
   return getFormattedResponse(filteredPostings);
 }
-function getFilterParameters(
+function getPostingValidators(
   params: FilteredQuery
 ): PostingValidator[] {
   return [
