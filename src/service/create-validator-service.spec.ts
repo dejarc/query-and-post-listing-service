@@ -46,7 +46,7 @@ describe('createValidator', () => {
     const result = createValidator(['Van', 'Reefer'], 'freight.equipmentType');
     expect(result(posting)).toEqual(true);
   });
-  it('Should return true when query value is empty', () => {
+  it('Should return true when query value is not supplied', () => {
     const posting: Posting = {
       companyName: 'test',
       freight: {
@@ -58,7 +58,7 @@ describe('createValidator', () => {
       id: 'test',
       companyId: 'test'
     };
-    const result = createValidator('', 'freight.equipmentType');
+    const result = createValidator(undefined, 'freight.equipmentType');
     expect(result(posting)).toEqual(true);
   });
  });

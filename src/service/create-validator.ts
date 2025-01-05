@@ -13,16 +13,17 @@ export function createValidator(
   const validatorOptions = options || {};
   const { queryTransformer = (val) => val } = validatorOptions;
   const { postTransformer = (val) => val } = validatorOptions;
-  if (typeof queryVal === 'undefined' || typeof queryVal === 'string') {
+  if (typeof queryVal === 'undefined') {
+    return () => true;
+  } else if (typeof queryVal === 'string') {
     const transformedQVal = queryTransformer(queryVal);
     return (posting: Posting): boolean => {
-      const postingVal = postTransformer(get(posting, postingPath, ''));
-      return (transformedQVal || postingVal) === postingVal;
+      return transformedQVal === postTransformer(get(posting, postingPath));
     };
   } else {
     const querySet = new Set(queryVal.map((qVal) => queryTransformer(qVal)));
     return (posting: Posting): boolean => {
-      return querySet.has(postTransformer(get(posting, postingPath, '')));
+      return querySet.has(postTransformer(get(posting, postingPath)));
     };
   }
 }
