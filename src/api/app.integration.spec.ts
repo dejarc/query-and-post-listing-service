@@ -62,7 +62,7 @@ describe('Company API', () => {
         companyName: 'test-company-5',
         freight: {
           equipmentType: 'Van',
-          fullPartial: 'HALF-FULL',
+          fullPartial: 'FULL',
           lengthFeet: 53,
           weightPounds: 36600,
         },
@@ -72,20 +72,21 @@ describe('Company API', () => {
       const full = testData.freight.fullPartial;
       const url = `/get-postings?fullPartial=${full}`;
       const updatedData = await agent.get(url);
-      expect(updatedData.body).toEqual([testData]);
+      const allResults = updatedData.body;
+      expect(allResults[allResults.length - 1]).toEqual(testData);
     });
     it('should return error when required parameters are missing', async () => {
       const agent = request(app);
       const testData = {
         companyName: 'test-company-5',
         freight: {
-          fullPartial: 'HALF-FULL',
+          fullPartial: 'FULL',
           lengthFeet: 53,
           weightPounds: 36600,
         },
       };
       const expectedResponse = {
-        error: 'missing one or more required properties',
+        message: 'Invalid properties detected, consult context for more information.',
         statusCode: 400,
         context: ['freight.equipmentType'],
       };

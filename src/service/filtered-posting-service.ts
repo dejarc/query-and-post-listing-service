@@ -7,7 +7,7 @@ import {
 import { getPostings } from '../integration/postings';
 import { getAllCompaniesById } from '../integration/company';
 import { get } from 'lodash';
-import { createValidator } from './create-validator-service';
+import { createValidator } from './createValidator';
 export async function filteredPostingsService(params: FilteredQuery) {
   const filteredParams = getFilterParameters(params);
   const postings = await getPostings();

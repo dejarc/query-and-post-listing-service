@@ -1,5 +1,5 @@
 import { Posting } from '../types/data-definitions';
-import { createValidator } from './create-validator-service';
+import { createValidator } from './createValidator';
 describe('createValidator', () => {
   it('Should return true for posting with the correct properties', () => {
     const posting: Posting = {

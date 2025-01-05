@@ -34,13 +34,10 @@ describe('createPosting', () => {
     });
     it('should send contextual error message when required properties are missing', async () => {
       const expected = {
-        error: 'missing one or more required properties',
+        message: 'Invalid properties detected, consult context for more information.',
         statusCode: 400,
         context: ['freight.weightPounds'],
       };
-      jest
-        .spyOn(createPostingService, 'createPostingService')
-        .mockReturnValue(Promise.reject(expected));
       const badRequest: any = {
         body: {
           companyName: 'test-company-3',
