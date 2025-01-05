@@ -18,8 +18,8 @@ function getPostingValidators(
   params: FilteredQuery
 ): PostingValidator[] {
   return [
-    createFilter(params.fullPartial || '', 'freight.fullPartial'),
-    createFilter(params.equipmentType || '', 'freight.equipmentType'),
+    createFilter(params.fullPartial, 'freight.fullPartial'),
+    createFilter(params.equipmentType, 'freight.equipmentType')
   ];
 }
 function filterByFreightProperties(
