@@ -60,3 +60,7 @@ export interface ApiError {
 
 export type CompanyApiResponse = TruncatedPosting[];
 export type PostingValidator = (posting: Posting) => boolean;
+export interface ValidatorOptions {
+  queryTransformer?: (srcVal: string) => string | number | boolean;
+  postingTransformer?: (srcVal: string) => string | number | boolean;
+}

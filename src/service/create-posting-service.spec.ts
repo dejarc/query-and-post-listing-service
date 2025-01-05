@@ -1,5 +1,4 @@
 import * as postingIntegration from '../integration/postings';
-import { TruncatedPosting } from '../types/data-definitions';
 import { createPostingService } from './create-posting-service';
 describe('createPostingService', () => {
     const posting: any = {
