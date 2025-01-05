@@ -1,6 +1,6 @@
 import { Posting } from '../types/data-definitions';
-import { createFilter } from './create-filter';
-describe('createFilter', () => {
+import { createValidator } from './create-validator';
+describe('createValidator', () => {
   it('Should return true for posting with the correct properties', () => {
     const posting: Posting = {
       companyName: 'test',
@@ -13,7 +13,7 @@ describe('createFilter', () => {
       id: 'test',
       companyId: 'test'
     };
-    const result = createFilter('FULL', 'freight.fullPartial');
+    const result = createValidator('FULL', 'freight.fullPartial');
     expect(result(posting)).toEqual(true);
   });
   it('Should return false for posting with incorrect value', () => {
@@ -28,7 +28,7 @@ describe('createFilter', () => {
       id: 'test',
       companyId: 'test'
     };
-    const result = createFilter('Van', 'freight.equipmentType');
+    const result = createValidator('Van', 'freight.equipmentType');
     expect(result(posting)).toEqual(false);
   });
   it('Should return true when query value is an array and posting property value is present in the array', () => {
@@ -43,7 +43,7 @@ describe('createFilter', () => {
       id: 'test',
       companyId: 'test'
     };
-    const result = createFilter(['Van', 'Reefer'], 'freight.equipmentType');
+    const result = createValidator(['Van', 'Reefer'], 'freight.equipmentType');
     expect(result(posting)).toEqual(true);
   });
   it('Should return true when query value is empty', () => {
@@ -58,7 +58,7 @@ describe('createFilter', () => {
       id: 'test',
       companyId: 'test'
     };
-    const result = createFilter('', 'freight.equipmentType');
+    const result = createValidator('', 'freight.equipmentType');
     expect(result(posting)).toEqual(true);
   });
  });

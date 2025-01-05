@@ -42,7 +42,7 @@ export interface Posting {
 
 export interface PostingApiResponse {
   postings: Posting[];
-};
+}
 export interface TruncatedPosting {
   companyName?: string;
   freight?: {
@@ -51,16 +51,16 @@ export interface TruncatedPosting {
     fullPartial?: string | null;
     lengthFeet?: number | null;
   };
-};
+}
 export interface ApiError {
   message: string;
   statusCode: number;
   context?: string[];
-};
+}
 
 export type CompanyApiResponse = TruncatedPosting[];
 export type PostingValidator = (posting: Posting) => boolean;
 export interface ValidatorOptions {
-  queryTransformer?: (srcVal?: string) => string | number | boolean;
-  postingTransformer?: (srcVal?: string) => string | number | boolean;
+  queryTransformer?: (srcVal?: string) => undefined | string | number | boolean;
+  postTransformer?: (srcVal?: string) => undefined | string | number | boolean;
 }
