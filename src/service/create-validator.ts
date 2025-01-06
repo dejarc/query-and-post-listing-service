@@ -8,11 +8,10 @@ import {
 export function createValidator(
   queryVal: undefined | string | Array<string>,
   postingPath: string,
-  options?: ValidatorOptions
+  options: ValidatorOptions = {}
 ): PostingValidator {
-  const validatorOptions = options || {};
-  const { queryTransformer = (val) => val } = validatorOptions;
-  const { postTransformer = (val) => val } = validatorOptions;
+  const { queryTransformer = (val) => val } = options;
+  const { postTransformer = (val) => val } = options;
   if (typeof queryVal === 'undefined') {
     return () => true;
   } else if (typeof queryVal === 'string') {
