@@ -1,7 +1,8 @@
 import * as postingIntegration from '../integration/postings';
+import { TruncatedPosting } from '../types/data-definitions';
 import { createPostingService } from './create-posting-service';
 describe('createPostingService', () => {
-    const posting: any = {
+    const posting: TruncatedPosting = {
       companyName: 'test-company-3',
       freight: {
         weightPounds: 36600,
@@ -10,7 +11,7 @@ describe('createPostingService', () => {
         lengthFeet: 53,
       },
     };
-    afterAll(() => {
+    afterEach(() => {
       jest.clearAllMocks();
     });
     it('should return success message when posting created successfully', async () => {

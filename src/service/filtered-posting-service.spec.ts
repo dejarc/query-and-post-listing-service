@@ -1,4 +1,5 @@
 import * as postingIntegration from '../integration/postings';
+import { FilteredQuery } from '../types/data-definitions';
 import { filteredPostingsService } from './filtered-posting-service';
 describe('filteredPostingsService', () => {
   const postingResponse = [
@@ -124,10 +125,13 @@ describe('filteredPostingsService', () => {
       },
     },
   ];
-  beforeAll(() => {
+  beforeEach(() => {
     jest
       .spyOn(postingIntegration, 'getPostings')
       .mockReturnValue(Promise.resolve(postingResponse));
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
   });
   it('should not filter the results when query parameters are omitted', async () => {
     const validRequest = {};
@@ -164,7 +168,7 @@ describe('filteredPostingsService', () => {
     expect(res).toEqual(expected);
   });
   it('should filter results based on "fullPartial" only', async () => {
-    const validRequest: any = {
+    const validRequest: FilteredQuery = {
       fullPartial: 'PARTIAL',
     };
     const expected = [

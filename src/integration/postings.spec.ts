@@ -1,6 +1,7 @@
 import { getPostings, createPosting } from './postings';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
+import { TruncatedPosting } from '../types/data-definitions';
 describe('postings-integration', () => {
   const mockData = {
     postings: [
@@ -33,7 +34,7 @@ describe('postings-integration', () => {
       },
     ],
   };
-  afterAll(() => {
+  afterEach(() => {
     jest.clearAllMocks();
   });
   describe('getPostings', () => {
@@ -50,15 +51,13 @@ describe('postings-integration', () => {
       mock.onPost('/posting').reply(() => {
         return [200];
       });
-      const validRequest: any = {
-        body: {
-          companyName: 'test-company-3',
-          freight: {
-            weightPounds: 36600,
-            equipmentType: 'Van',
-            fullPartial: 'FULL',
-            lengthFeet: 53,
-          },
+      const validRequest: TruncatedPosting = {
+        companyName: 'test-company-3',
+        freight: {
+          weightPounds: 36600,
+          equipmentType: 'Van',
+          fullPartial: 'FULL',
+          lengthFeet: 53,
         },
       };
       const res = await createPosting(validRequest);
