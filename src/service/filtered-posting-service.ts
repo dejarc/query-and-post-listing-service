@@ -24,7 +24,7 @@ function getPostingValidators(
 }
 function filterByFreightProperties(
   postings: Posting[],
-  validators: { (posting: Posting): boolean }[]
+  validators: PostingValidator[]
 ): Posting[] {
   return postings.filter((posting: Posting) => {
     return !validators.find((validator) => !validator(posting));

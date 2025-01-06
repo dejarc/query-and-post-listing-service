@@ -52,12 +52,6 @@ export interface TruncatedPosting {
     lengthFeet?: number | null;
   };
 }
-export interface ApiError {
-  message: string;
-  statusCode: number;
-  context?: string[];
-}
-
 export type CompanyApiResponse = TruncatedPosting[];
 export type PostingValidator = (posting: Posting) => boolean;
 export interface ValidatorOptions {
