@@ -1,13 +1,11 @@
-import { ApiError } from '../types/data-definitions';
-
+import { ApiError } from '../types/api-error';
 export function formatResponseError(err: ApiError): ApiError {
-  if (err.statusCode) {
-    // custom error thrown by service
+  if (err instanceof ApiError) {
     return err;
   }
-  return {
+  return new ApiError({
     message: 'Internal Server Error',
     statusCode: 500,
     context: [],
-  };
+  });
 }

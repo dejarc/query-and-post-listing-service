@@ -1,4 +1,5 @@
 import * as filteredPostingService from '../../service/filtered-posting-service';
+import { ApiError } from '../../types/api-error';
 import { getPostings } from './postings';
 import { getMockReq, getMockRes } from '@jest-mock/express';
 describe('getPostings', () => {
@@ -53,11 +54,11 @@ describe('getPostings', () => {
     expect(res.send).toHaveBeenCalledWith(expected);
   });
   it('should return error when integration call fails', async () => {
-    const expected = {
+    const expected = new ApiError({
       message: 'Internal Server Error',
       statusCode: 500,
       context: [],
-    };
+    });
     jest
       .spyOn(filteredPostingService, 'filteredPostingsService')
       .mockReturnValue(Promise.reject(new Error('integration call failed')));

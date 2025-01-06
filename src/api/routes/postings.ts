@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { filteredPostingsService } from '../../service/filtered-posting-service';
-import { ApiError } from '../../types/data-definitions';
+import { ApiError } from '../../types/api-error';
 import { formatResponseError } from '../../service/error-service';
 import { getFilteredParams } from '../../service/filter-query-params-service';
 export async function getPostings(req: Request, res: Response) {
