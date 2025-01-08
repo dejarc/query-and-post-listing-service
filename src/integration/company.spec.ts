@@ -17,7 +17,7 @@ describe('db-integration', () => {
   mockData.forEach((company) => {
     companies.insert(company);
   });
-  afterAll(() => {
+  afterEach(() => {
     jest.restoreAllMocks();
   });
   describe('getCompanies', () => {
